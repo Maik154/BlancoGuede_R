@@ -65,6 +65,7 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.db_connect(self)
         conexion.Conexion.listarFurgo(self)
         conexion.Conexion.listarCon(self)
+        conexion.Conexion.listarRuta(self)
         conexion.Conexion.cargarCmbMat(var.ui.cmbMat)
         conexion.Conexion.cargarCmbCon(var.ui.cmbCon)
 
@@ -84,23 +85,33 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnReloadCon.clicked.connect(eventos.Eventos.limpiaCon)
         var.ui.txtDni.editingFinished.connect(eventos.Eventos.validarDni)
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)
-        var.ui.txtKmF.editingFinished.connect(eventos.Eventos.calculaDistancia)
+        var.ui.txtKmFin.editingFinished.connect(eventos.Eventos.calculaDistancia)
+        var.ui.btnAltaRuta.clicked.connect(eventos.Eventos.altaRuta)
 
 
         '''
         eventos de las tablas
         '''
+
         var.ui.tabFurgo.clicked.connect(eventos.Eventos.datosUnaFurgo)
         var.ui.tabFurgo.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+        var.ui.tabFurgo.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         var.ui.tabConductor.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
         var.ui.tabConductor.clicked.connect(eventos.Eventos.datosUnCon)
-        var.ui.tabFurgo.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         var.ui.tabConductor.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+
 
         '''
         eventos tarifas
         '''
         var.ui.btnTipoRuta.buttonClicked.connect(eventos.Eventos.calculaTarifa)
+
+
+
+        '''
+        eventos rutas
+        '''
+
 
         '''
         eventos menuBar

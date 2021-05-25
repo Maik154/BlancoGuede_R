@@ -17,24 +17,24 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="1">
-       <spacer name="verticalSpacer">
+      <item row="1" column="2">
+       <spacer name="horizontalSpacer_2">
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeType">
          <enum>QSizePolicy::Fixed</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
-          <height>40</height>
+          <width>40</width>
+          <height>20</height>
          </size>
         </property>
        </spacer>
       </item>
-      <item row="2" column="1">
-       <spacer name="verticalSpacer_2">
+      <item row="0" column="1">
+       <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -65,18 +65,18 @@
         </property>
        </spacer>
       </item>
-      <item row="1" column="2">
-       <spacer name="horizontalSpacer_2">
+      <item row="2" column="1">
+       <spacer name="verticalSpacer_2">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Vertical</enum>
         </property>
         <property name="sizeType">
          <enum>QSizePolicy::Fixed</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>20</width>
+          <height>40</height>
          </size>
         </property>
        </spacer>
@@ -90,7 +90,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="iconSize">
          <size>
@@ -729,9 +729,9 @@
           <property name="geometry">
            <rect>
             <x>560</x>
-            <y>93</y>
-            <width>31</width>
-            <height>31</height>
+            <y>100</y>
+            <width>21</width>
+            <height>21</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -745,12 +745,12 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>img/recload.png</normaloff>img/recload.png</iconset>
+            <normaloff>../../Downloads/deberes/BlancoGuede_R/img/recload.png</normaloff>../../Downloads/deberes/BlancoGuede_R/img/recload.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>30</width>
-            <height>30</height>
+            <width>20</width>
+            <height>20</height>
            </size>
           </property>
          </widget>
@@ -795,7 +795,7 @@
            <enum>Qt::Horizontal</enum>
           </property>
          </widget>
-         <widget class="QTableWidget" name="tableWidget">
+         <widget class="QTableWidget" name="tabRutas">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -804,6 +804,105 @@
             <height>171</height>
            </rect>
           </property>
+          <column>
+           <property name="text">
+            <string>CÓDIGO</string>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>FECHA</string>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>MATRICULA</string>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>CONDUCTOR</string>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>KMINICIAL</string>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>KM FINAL</string>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>KM TOTAL</string>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>TARIFA</string>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>PRECIO TOTAL</string>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+          </column>
          </widget>
          <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
@@ -1298,7 +1397,7 @@
              </property>
              <property name="icon">
               <iconset>
-               <normaloff>calendar.png</normaloff>calendar.png</iconset>
+               <normaloff>../../Downloads/deberes/BlancoGuede_R/calendar.png</normaloff>../../Downloads/deberes/BlancoGuede_R/calendar.png</iconset>
              </property>
             </widget>
            </item>
@@ -1386,7 +1485,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLineEdit" name="txtKmI">
+            <widget class="QLineEdit" name="txtKmIni">
              <property name="minimumSize">
               <size>
                <width>120</width>
@@ -1409,7 +1508,7 @@
             </widget>
            </item>
            <item row="0" column="3">
-            <widget class="QLineEdit" name="txtKmF">
+            <widget class="QLineEdit" name="txtKmFin">
              <property name="minimumSize">
               <size>
                <width>120</width>
@@ -3157,7 +3256,7 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>img/recload.png</normaloff>img/recload.png</iconset>
+            <normaloff>../../Downloads/deberes/BlancoGuede_R/img/recload.png</normaloff>../../Downloads/deberes/BlancoGuede_R/img/recload.png</iconset>
           </property>
           <property name="iconSize">
            <size>

@@ -1,5 +1,7 @@
 import sys
 
+from PyQt5 import QtSql
+
 import conexion
 import var
 from ventana import *
@@ -28,7 +30,7 @@ class Eventos():
         try:
             matricula = var.ui.txtMatricula.text()
             conexion.Conexion.deleteFurgo(matricula)
-            conexion.Conexion.listarFurgo()
+            conexion.Conexion.listarFurgo(self)
             conexion.Conexion.cargarCmbMat(var.ui.cmbMat)
 
         except Exception as error:
@@ -204,28 +206,72 @@ class Eventos():
             coste = []
             coste = conexion.Conexion.cargarTarifas(self)
             print('hola')
-            total = int(var.ui.txtKmF.text())-int(var.ui.txtKmI.text())
+            total = int(var.ui.txtKmF.text()) - int(var.ui.txtKmI.text())
+            print(total)
             if total <= 0:
                 var.ui.lblPrecio.setStyleSheet('QLabel {color:red; background-color: rgb(252, 255, 180);}')
                 var.ui.lblPrecio.setText('Valores km incorrectos')
             else:
                 var.ui.lblPrecio.setStyleSheet('QLabel {color:black; background-color: rgb(252, 255, 180);}')
                 if var.ui.rbtLocal.isChecked():
-                    var.ui.lblPrecio.setText(str('{0:.2f}'.format(total * coste[0]) + ' €'))
+                    var.ui.lblPrecio.setText(str('{0:.2f}'.format(total * coste[0])))
 
                 if var.ui.rbtProvincial.isChecked():
-                    var.ui.lblPrecio.setText(str('{0:.2f}'.format(total * coste[1]) + ' €'))
+                    var.ui.lblPrecio.setText(str('{0:.2f}'.format(total * coste[1])))
 
                 if var.ui.rbtRegional.isChecked():
-                    var.ui.lblPrecio.setText(str('{0:.2f}'.format(total * coste[2]) + ' €'))
+                    var.ui.lblPrecio.setText(str('{0:.2f}'.format(total * coste[2])))
 
                 if var.ui.rbtNacional.isChecked():
-                    var.ui.lblPrecio.setText(str('{0:.2f}'.format(total * coste[3]) + ' €'))
+                    var.ui.lblPrecio.setText(str('{0:.2f}'.format(total * coste[3])))
 
         except Exception as error:
             print('Error calcular tarifa. %s' % str(error))
             return None
 
+    def altaRuta(self):
+        try:
+            var.newRuta = []
+            tar = conexion.Conexion.cargarTarifas(self)
+            tarifa = 0.00
+            if var.ui.rbtLocal.isChecked():
+                tarifa = tar[0]
+            if var.ui.rbtProvincial.isChecked():
+                tarifa = tar[1]
+            if var.ui.rbtRegional.isChecked():
+                tarifa = tar[2]
+            if var.ui.rbtNacional.isChecked():
+                tarifa = tar[3]
+            ruta = [var.ui.txtFecha.text(), var.ui.cmbMat.currentText(),
+                    var.ui.cmbCon.currentText(), var.ui.txtKmI.text(),
+                    var.ui.txtKmF.text(), var.ui.lblKmTotal.text(), str(tarifa),
+                    var.ui.lblPrecio.text()]
+            print(tarifa)
+            for i in ruta:
+                var.newRuta.append(i)
+
+            conexion.Conexion.altaRuta(var.newRuta)
+            conexion.Conexion.listarRuta(self)
+
+        except Exception as error:
+            print('Error alta tarifa. %s' % str(error))
+
+    def datosUnaRuta(self):
+        try:
+            fila = var.ui.tabRutas.selectedItems()
+            ruta = [var.ui.lblRuta, var.ui.txtFecha, var.ui.cmbMat,
+                    var.ui.cmbCon, var.ui.txtKmI, var.ui.txtKmF,
+                    int(var.ui.txtKmF - var.ui.txtKmI), var.ui.btnTipoRuta,
+                    var.ui.lblPrecio]
+            if fila:
+                fila = [dato.text() for dato in fila]
+                for i, dato in enumerate(ruta):
+                    dato.setText(fila[i])
+
+
+
+        except Exception as error:
+            print('Error mostrar tarifa %s' % str(error))
 
     '''
     eventos generales
@@ -234,7 +280,7 @@ class Eventos():
     def salir(self):
         try:
             ret = QtWidgets.QMessageBox.question(None, 'Salir',
-                                           '¿Desea salir?')
+                                                 '¿Desea salir?')
             if ret == QtWidgets.QMessageBox.Yes:
                 sys.exit(0)
             if ret == QtWidgets.QMessageBox.No:

@@ -170,7 +170,6 @@ class Conexion():
                 tar.append(query.value(3))
                 var.tarifas[3].setText(str(query.value(4)))
                 tar.append(query.value(4))
-
         return tar
 
     def actualizarTarifas(self):
@@ -181,8 +180,9 @@ class Conexion():
                 nuevaTarifa.append('{0:.2f}'.format(float(dato.text())))
             print(nuevaTarifa)
             query = QtSql.QSqlQuery()
-            query.prepare('update tarifas set local=:local, provincial=:provincial, regional=:regional, nacional=:nacional '
-                          'where id=:id')
+            query.prepare(
+                'update tarifas set local=:local, provincial=:provincial, regional=:regional, nacional=:nacional '
+                'where id=:id')
             query.bindValue(':id', int(id))
             query.bindValue(':local', '{0:.2f}'.format(float(nuevaTarifa[0])))
             query.bindValue(':provincial', '{0:.2f}'.format(float(nuevaTarifa[1])))
@@ -196,3 +196,44 @@ class Conexion():
                                               'Recuerde que las tarifas son únicas. Haga Click para Continuar')
         except Exception as error:
             print('Error actualizar tarifas: %s: ' % str(error))
+
+    def altaRuta(newruta):
+        print(newruta)
+        query = QtSql.QSqlQuery()
+        query.prepare('insert into ruta (fecha, matricula, conductor, kmIni, kmFin, kmTotal, tarifaKm, tarifaTotal)'
+                      'VALUES (:fecha, :matricula, :conductor, :kmIni, :kmFin, :kmTotal, :tarifaKm, :tarifaTotal)')
+        query.bindValue(':fecha', str(newruta[0]))
+        query.bindValue(':matricula', str(newruta[1]))
+        query.bindValue(':conductor', str(newruta[2]))
+        query.bindValue(':kmIni', str(newruta[3]))
+        query.bindValue(':kmFin', str(newruta[4]))
+        query.bindValue(':kmTotal', str(newruta[5]))
+        query.bindValue(':tarifaKm', str(newruta[6]))
+        query.bindValue(':tarifaTotal', str(newruta[7]))
+        if query.exec_():
+            QtWidgets.QMessageBox.information(None, 'Alta tarifa?',
+                                              'Haga Click para Continuar')
+        else:
+            QtWidgets.QMessageBox.warning(None, query.lastError().text(),
+                                          'Recuerde que las tarifas son únicas. Haga Click para Continuar')
+
+    def listarRuta(self):
+        index = 0
+        query = QtSql.QSqlQuery()
+        query.prepare('select * from ruta')
+        if query.exec_():
+            while query.next():
+                var.ui.tabRutas.setRowCount(index + 1)
+                var.ui.tabRutas.setItem(index, 0, QtWidgets.QTableWidgetItem(str(query.value(0))))
+                var.ui.tabRutas.setItem(index, 1, QtWidgets.QTableWidgetItem(query.value(1)))
+                var.ui.tabRutas.setItem(index, 2, QtWidgets.QTableWidgetItem(query.value(2)))
+                var.ui.tabRutas.setItem(index, 3, QtWidgets.QTableWidgetItem(query.value(3)))
+                var.ui.tabRutas.setItem(index, 4, QtWidgets.QTableWidgetItem(str(query.value(4))))
+                var.ui.tabRutas.setItem(index, 5, QtWidgets.QTableWidgetItem(str(query.value(5))))
+                var.ui.tabRutas.setItem(index, 6, QtWidgets.QTableWidgetItem(str(query.value(6))))
+                var.ui.tabRutas.setItem(index, 7, QtWidgets.QTableWidgetItem(str(query.value(7))))
+                var.ui.tabRutas.setItem(index, 8, QtWidgets.QTableWidgetItem(str(query.value(8))))
+                index += 1
+        else:
+            QtWidgets.QMessageBox.warning(None, 'Haga click para continuar',
+                                          query.lastError().text())

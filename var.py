@@ -8,3 +8,4 @@ otras variables
 newFurgo = []
 newCon = []
 tarifas = []
+newRuta = []
