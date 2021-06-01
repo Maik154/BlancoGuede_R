@@ -1,7 +1,5 @@
 import sys
 
-from PyQt5 import QtSql
-
 import conexion
 import var
 from ventana import *
@@ -42,7 +40,7 @@ class Eventos():
             furgoModif = []
             for i in oldFurgo:
                 furgoModif.append(i.text())
-            conexion.Conexion.modificaFurgo(furgoModif)
+            conexion.Conexion.modifFurgo(furgoModif)
             conexion.Conexion.listarFurgo(self)
             conexion.Conexion.cargarCmbMat(var.ui.cmbMat)
 
@@ -189,8 +187,8 @@ class Eventos():
 
     def calculaDistancia():
         try:
-            inicio = int(var.ui.txtKmI.text())
-            final = int(var.ui.txtKmF.text())
+            inicio = int(var.ui.txtKmIni.text())
+            final = int(var.ui.txtKmFin.text())
             if final <= inicio:
                 var.ui.lblKmTotal.setStyleSheet('QLabel {color:red; background-color: rgb(252, 255, 180);}')
                 var.ui.lblKmTotal.setText('Comprueba los km')
@@ -206,7 +204,7 @@ class Eventos():
             coste = []
             coste = conexion.Conexion.cargarTarifas(self)
             print('hola')
-            total = int(var.ui.txtKmF.text()) - int(var.ui.txtKmI.text())
+            total = int(var.ui.txtKmFin.text()) - int(var.ui.txtKmIni.text())
             print(total)
             if total <= 0:
                 var.ui.lblPrecio.setStyleSheet('QLabel {color:red; background-color: rgb(252, 255, 180);}')
@@ -243,35 +241,30 @@ class Eventos():
             if var.ui.rbtNacional.isChecked():
                 tarifa = tar[3]
             ruta = [var.ui.txtFecha.text(), var.ui.cmbMat.currentText(),
-                    var.ui.cmbCon.currentText(), var.ui.txtKmI.text(),
-                    var.ui.txtKmF.text(), var.ui.lblKmTotal.text(), str(tarifa),
-                    var.ui.lblPrecio.text()]
+                    var.ui.cmbCon.currentText(), var.ui.txtKmIni.text(),
+                    var.ui.txtKmFin.text(), str(tarifa)]
             print(tarifa)
             for i in ruta:
                 var.newRuta.append(i)
-
             conexion.Conexion.altaRuta(var.newRuta)
             conexion.Conexion.listarRuta(self)
 
         except Exception as error:
             print('Error alta tarifa. %s' % str(error))
 
-    def datosUnaRuta(self):
+    def limpiaRuta(self):
         try:
-            fila = var.ui.tabRutas.selectedItems()
-            ruta = [var.ui.lblRuta, var.ui.txtFecha, var.ui.cmbMat,
-                    var.ui.cmbCon, var.ui.txtKmI, var.ui.txtKmF,
-                    int(var.ui.txtKmF - var.ui.txtKmI), var.ui.btnTipoRuta,
-                    var.ui.lblPrecio]
-            if fila:
-                fila = [dato.text() for dato in fila]
-                for i, dato in enumerate(ruta):
-                    dato.setText(fila[i])
-
-
+            con = [var.ui.lblRuta, var.ui.txtFecha,
+                   var.ui.txtKmIni, var.ui.txtKmFin,
+                   var.ui.lblKmTotal, var.ui.lblPrecio]
+            for i in range(len(con)):
+                con[i].setText('')
+            var.ui.cmbMat.setCurrentIndex(0)
+            var.ui.cmbCon.setCurrentIndex(0)
 
         except Exception as error:
-            print('Error mostrar tarifa %s' % str(error))
+            print('Error al limpiar datos de un conductor: %s ' % str(error))
+
 
     '''
     eventos generales

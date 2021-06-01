@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>804</width>
-    <height>654</height>
+    <width>763</width>
+    <height>614</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,7 +44,23 @@
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>40</height>
+          <height>30</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="1">
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
        </spacer>
@@ -65,22 +81,6 @@
         </property>
        </spacer>
       </item>
-      <item row="2" column="1">
-       <spacer name="verticalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
       <item row="1" column="1">
        <widget class="QTabWidget" name="pestanha_Furgo">
         <property name="maximumSize">
@@ -90,7 +90,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <property name="iconSize">
          <size>
@@ -804,6 +804,12 @@
             <height>171</height>
            </rect>
           </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>CÓDIGO</string>
@@ -814,16 +820,25 @@
              <bold>true</bold>
             </font>
            </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
           </column>
           <column>
            <property name="text">
             <string>FECHA</string>
+           </property>
+           <property name="whatsThis">
+            <string/>
            </property>
            <property name="font">
             <font>
              <weight>75</weight>
              <bold>true</bold>
             </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
            </property>
           </column>
           <column>
@@ -872,17 +887,6 @@
           </column>
           <column>
            <property name="text">
-            <string>KM TOTAL</string>
-           </property>
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-          </column>
-          <column>
-           <property name="text">
             <string>TARIFA</string>
            </property>
            <property name="font">
@@ -894,7 +898,7 @@
           </column>
           <column>
            <property name="text">
-            <string>PRECIO TOTAL</string>
+            <string>TOTAL</string>
            </property>
            <property name="font">
             <font>
@@ -909,7 +913,7 @@
            <rect>
             <x>90</x>
             <y>50</y>
-            <width>341</width>
+            <width>351</width>
             <height>26</height>
            </rect>
           </property>
@@ -1388,6 +1392,9 @@
                <height>0</height>
               </size>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
             </widget>
            </item>
            <item row="0" column="4">
@@ -1408,13 +1415,29 @@
            <rect>
             <x>90</x>
             <y>88</y>
-            <width>437</width>
-            <height>22</height>
+            <width>491</width>
+            <height>26</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="1">
+            <widget class="QComboBox" name="cmbMat">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>0</height>
+              </size>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="lblMatricula_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="font">
               <font>
                <weight>75</weight>
@@ -1426,18 +1449,14 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QComboBox" name="cmbMat">
-             <property name="minimumSize">
-              <size>
-               <width>150</width>
-               <height>0</height>
-              </size>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="2">
             <widget class="QLabel" name="lblConductor">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="font">
               <font>
                <weight>75</weight>
@@ -1456,6 +1475,23 @@
                <width>150</width>
                <height>0</height>
               </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QPushButton" name="btnLimpiaRuta">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>img/recload.png</normaloff>img/recload.png</iconset>
              </property>
             </widget>
            </item>
@@ -1492,6 +1528,9 @@
                <height>0</height>
               </size>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
             </widget>
            </item>
            <item row="0" column="2">
@@ -1514,6 +1553,9 @@
                <width>120</width>
                <height>0</height>
               </size>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
@@ -1974,22 +2016,15 @@
            <rect>
             <x>130</x>
             <y>208</y>
-            <width>331</width>
+            <width>443</width>
             <height>25</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_7">
-           <item row="0" column="4">
-            <widget class="QPushButton" name="btnBajaRuta">
+           <item row="0" column="6">
+            <widget class="QPushButton" name="btnSalir">
              <property name="text">
-              <string>Eliminar</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="btnAltaRuta">
-             <property name="text">
-              <string>Añadir</string>
+              <string>Salir</string>
              </property>
             </widget>
            </item>
@@ -1997,6 +2032,13 @@
             <widget class="QPushButton" name="btnModifRuta">
              <property name="text">
               <string>Modificar</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="btnAltaRuta">
+             <property name="text">
+              <string>Añadir</string>
              </property>
             </widget>
            </item>
@@ -2016,8 +2058,31 @@
              </property>
             </spacer>
            </item>
+           <item row="0" column="4">
+            <widget class="QPushButton" name="btnBajaRuta">
+             <property name="text">
+              <string>Eliminar</string>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="3">
             <spacer name="horizontalSpacer_9">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>35</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="5">
+            <spacer name="horizontalSpacer_11">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -3277,7 +3342,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>804</width>
+     <width>763</width>
      <height>21</height>
     </rect>
    </property>
@@ -3293,8 +3358,15 @@
     </property>
     <addaction name="menuBarTarifas"/>
    </widget>
+   <widget class="QMenu" name="menuInformes">
+    <property name="title">
+     <string>Informes</string>
+    </property>
+    <addaction name="reportRutas"/>
+   </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuHerramientas"/>
+   <addaction name="menuInformes"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="menuBarSalir">
@@ -3305,6 +3377,11 @@
   <action name="menuBarTarifas">
    <property name="text">
     <string>Tarifas</string>
+   </property>
+  </action>
+  <action name="reportRutas">
+   <property name="text">
+    <string>Listado Rutas</string>
    </property>
   </action>
  </widget>

@@ -200,16 +200,14 @@ class Conexion():
     def altaRuta(newruta):
         print(newruta)
         query = QtSql.QSqlQuery()
-        query.prepare('insert into ruta (fecha, matricula, conductor, kmIni, kmFin, kmTotal, tarifaKm, tarifaTotal)'
-                      'VALUES (:fecha, :matricula, :conductor, :kmIni, :kmFin, :kmTotal, :tarifaKm, :tarifaTotal)')
+        query.prepare('insert into ruta (fecha, matricula, conductor, kmIni, kmFin, tarifa)'
+                      'VALUES (:fecha, :matricula, :conductor, :kmIni, :kmFin, :tarifa)')
         query.bindValue(':fecha', str(newruta[0]))
         query.bindValue(':matricula', str(newruta[1]))
         query.bindValue(':conductor', str(newruta[2]))
         query.bindValue(':kmIni', str(newruta[3]))
         query.bindValue(':kmFin', str(newruta[4]))
-        query.bindValue(':kmTotal', str(newruta[5]))
-        query.bindValue(':tarifaKm', str(newruta[6]))
-        query.bindValue(':tarifaTotal', str(newruta[7]))
+        query.bindValue(':tarifa', str(newruta[5]))
         if query.exec_():
             QtWidgets.QMessageBox.information(None, 'Alta tarifa?',
                                               'Haga Click para Continuar')
@@ -231,9 +229,52 @@ class Conexion():
                 var.ui.tabRutas.setItem(index, 4, QtWidgets.QTableWidgetItem(str(query.value(4))))
                 var.ui.tabRutas.setItem(index, 5, QtWidgets.QTableWidgetItem(str(query.value(5))))
                 var.ui.tabRutas.setItem(index, 6, QtWidgets.QTableWidgetItem(str(query.value(6))))
-                var.ui.tabRutas.setItem(index, 7, QtWidgets.QTableWidgetItem(str(query.value(7))))
-                var.ui.tabRutas.setItem(index, 8, QtWidgets.QTableWidgetItem(str(query.value(8))))
+                total = float(query.value(6)) * float(int(query.value(5)) - int(query.value(4)))
+                var.ui.tabRutas.setItem(index, 7, QtWidgets.QTableWidgetItem(str(total)))
+                var.ui.tabRutas.item(index, 0).setTextAlignment(QtCore.Qt.AlignCenter)
+                var.ui.tabRutas.item(index, 1).setTextAlignment(QtCore.Qt.AlignCenter)
+                var.ui.tabRutas.item(index, 4).setTextAlignment(QtCore.Qt.AlignRight)
+                var.ui.tabRutas.item(index, 5).setTextAlignment(QtCore.Qt.AlignRight)
+                var.ui.tabRutas.item(index, 6).setTextAlignment(QtCore.Qt.AlignRight)
+                var.ui.tabRutas.item(index, 7).setTextAlignment(QtCore.Qt.AlignRight)
+
                 index += 1
+        # if int(index) > 0:
+        #     rutas.Rutas.
+
         else:
             QtWidgets.QMessageBox.warning(None, 'Haga click para continuar',
                                           query.lastError().text())
+
+    def bajaRuta(numRuta):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('delete from ruta where codigo = :numRuta')
+            query.bindValue(':numRuta', int(numRuta))
+            if query.exec_():
+                QtWidgets.QMessageBox.information(None, 'Ruta Eliminada',
+                                                  'Haga Click para Continuar')
+            else:
+                QtWidgets.QMessageBox.warning(None, query.lastError().text(),
+                                              'Haga Click para Continuar')
+        except Exception as error:
+            print('Cargar ruta. %s:' % str(error))
+
+    @classmethod
+    def modifRuta(self, cod, newData):
+        query = QtSql.QSqlQuery()
+
+        query.prepare('update ruta set fecha=:fecha, matricula=:matricula, conductor=:conductor '
+                      'where codigo=:cod')
+        query.bindValue(':codigo', int(cod))
+        query.bindValue(':fecha', str(newData[0]))
+        query.bindValue(':matricula', str(newData[1]))
+        query.bindValue(':conductor', str(newData[2]))
+        # query.bindValue(':kmIni', str(newData[3]))
+        # query.bindValue(':kmFin', str(newData[4]))
+        if query.exec_():
+            QtWidgets.QMessageBox.information(None, 'Ruta modificada',
+                                              'Haga Click para Continuar')
+        else:
+            QtWidgets.QMessageBox.warning(None, query.lastError().text(),
+                                          'Haga Click para Continuar')

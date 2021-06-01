@@ -16,6 +16,7 @@ import conexion
 import eventos
 import rutas
 import var
+import informes
 from calendar import *
 
 locale.setlocale(locale.LC_ALL, 'es-Es')
@@ -87,8 +88,10 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)
         var.ui.txtKmFin.editingFinished.connect(eventos.Eventos.calculaDistancia)
         var.ui.btnAltaRuta.clicked.connect(eventos.Eventos.altaRuta)
-
-
+        var.ui.btnBajaRuta.clicked.connect(rutas.Rutas.bajaRuta)
+        var.ui.btnLimpiaRuta.clicked.connect(eventos.Eventos.limpiaRuta)
+        var.ui.btnSalir.clicked.connect(eventos.Eventos.salir)
+        var.ui.btnModifRuta.clicked.connect(rutas.Rutas.modificaRuta)
         '''
         eventos de las tablas
         '''
@@ -99,6 +102,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.tabConductor.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
         var.ui.tabConductor.clicked.connect(eventos.Eventos.datosUnCon)
         var.ui.tabConductor.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        var.ui.tabRutas.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+        var.ui.tabRutas.clicked.connect(rutas.Rutas.cargaUnaRuta)
 
 
         '''
@@ -118,12 +123,14 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.menuBarSalir.triggered.connect(eventos.Eventos.salir)
         var.ui.menuBarTarifas.triggered.connect(rutas.Rutas.mostrarTarifas)
+        var.ui.reportRutas.triggered.connect(informes.Informes.informeRutas)
 
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
     window = Main()
     # window.setFixedSize(1204, 768)
-    window.showMaximized()
+    window.setMinimumSize(800, 650)
+    # window.showMaximized()
     window.show()
     sys.exit(app.exec())
